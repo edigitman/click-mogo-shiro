@@ -40,10 +40,11 @@ public class CustomJdbcRealm extends JdbcRealm {
 					User.class);
 
 			if (user == null) {
-				User u = new User();
-				u.setName(username);
-				u.setPass(new String(upToken.getPassword()));
-				mc.save(u);
+				throw new AccountException("User not founs.");
+			}
+
+			if (!user.getPass().equals(new String(upToken.getPassword()))) {
+				throw new AccountException("Invalid user or password");
 			}
 
 			info = new SimpleAuthenticationInfo(username, user.getPass()
