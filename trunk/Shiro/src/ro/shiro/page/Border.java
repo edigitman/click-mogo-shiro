@@ -1,6 +1,8 @@
 package ro.shiro.page;
 
 import org.apache.click.control.ActionLink;
+import org.apache.click.control.Label;
+import org.apache.shiro.SecurityUtils;
 
 public class Border extends org.apache.click.Page {
 
@@ -8,6 +10,8 @@ public class Border extends org.apache.click.Page {
 
 	public Border() {
 		addControl(new ActionLink("logout", this, "onLogout"));
+		addControl(new Label("username", SecurityUtils.getSubject()
+				.getPrincipal().toString()));
 	}
 
 	@Override
@@ -15,4 +19,14 @@ public class Border extends org.apache.click.Page {
 		return "/borderPage.htm";
 	}
 
+	/**
+	 * Logs out the user from security shiro and redirects to login
+	 * 
+	 * @return false
+	 */
+	public boolean onLogout() {
+		SecurityUtils.getSubject().logout();
+		setRedirect(Login.class);
+		return false;
+	}
 }
