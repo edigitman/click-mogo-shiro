@@ -1,0 +1,36 @@
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="$context/assets/css/style.css" title="Style" />
+<link rel="stylesheet" type="text/css"
+	href="$context/assets/css/menu.css" title="Style" />
+<script src="$context/assets/js/menu.js" type="text/javascript"></script>
+<title>Blank</title> $imports
+</head>
+<body>
+	<div class="header">
+		<table>
+			<tr>
+				<td width="800px;"><div id="title">header</div></td>
+				<td width="100px;" align="right"><div id="logout">$logout</div></td>
+			</tr>
+		</table>
+	</div>
+	<div class="menu">
+		<div id="sse3">
+			<div id="sses3">
+				<ul>
+					<li><a href="?menu=1">Javascript Menus</a></li>
+					<li><a href="?menu=2">Horizontal Menus</a></li>
+					<li><a href="?menu=3">Web Menus</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="main">
+		body<br />#parse($path)
+	</div>
+	<div class="footer">footer</div>
+</body>
+</html>
