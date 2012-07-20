@@ -14,7 +14,7 @@ import ro.shiro.mongo.MongoUtils;
 
 public class CustomJdbcRealm extends JdbcRealm {
 
-	protected static final String DEFAULT_AUTHENTICATION_QUERY = "{name: #}";
+	protected static final String DEFAULT_AUTHENTICATION_QUERY = "{name: #, active: #}";
 
 	public CustomJdbcRealm() {
 		super();
@@ -36,11 +36,11 @@ public class CustomJdbcRealm extends JdbcRealm {
 		try {
 			MongoUtils m = MongoUtils.getMe();
 			MongoCollection mc = m.getCollection(MongoUtils.Collection.USER);
-			User user = mc.findOne(DEFAULT_AUTHENTICATION_QUERY, username).as(
+			User user = mc.findOne(DEFAULT_AUTHENTICATION_QUERY, username, true).as(
 					User.class);
 
 			if (user == null) {
-				throw new AccountException("User not founs.");
+				throw new AccountException("User not found.");
 			}
 
 			if (!user.getPass().equals(new String(upToken.getPassword()))) {
