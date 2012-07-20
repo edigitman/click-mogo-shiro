@@ -2,7 +2,7 @@ package ro.shiro.page;
 
 import org.apache.click.control.FieldSet;
 import org.apache.click.control.Form;
-import org.apache.click.control.Label;
+import org.apache.click.control.PageLink;
 import org.apache.click.control.PasswordField;
 import org.apache.click.control.Submit;
 import org.apache.click.control.TextField;
@@ -25,6 +25,7 @@ public class Login extends org.apache.click.Page {
 		fs.add(new Submit("ok", this, "onOK"));
 		f.add(fs);
 		addControl(f);
+		addControl(new PageLink("newAcc","new account", NewAccout.class));
 	}
 
 	public boolean onOK() {
@@ -38,7 +39,6 @@ public class Login extends org.apache.click.Page {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return true;
 	}
 

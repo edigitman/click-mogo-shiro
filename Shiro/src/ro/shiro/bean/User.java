@@ -7,6 +7,8 @@ public class User {
 	private String name;
 	private String pass;
 	private String username;
+	private String email;
+	private boolean active;
 
 	public ObjectId get_id() {
 		return _id;
@@ -40,4 +42,19 @@ public class User {
 		this.username = username;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
 }
