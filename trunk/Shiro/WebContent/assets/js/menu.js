@@ -15,7 +15,7 @@ var sse3 = function () {
             var nLength = -1;
             var slip = [];
 
-            for (i = 0; i < a.length; i++) {
+            for (var i = 0; i < a.length; i++) {
                 if (url.indexOf(a[i].href.toLowerCase()) != -1 && a[i].href.length > nLength) {
                     k = i;
                     nLength = a[i].href.length;
@@ -48,7 +48,7 @@ var sse3 = function () {
                 lis[i].onmouseout = function () {
                     clearInterval(this.t);
                     sse3.move(this, 1);
-                }
+                };
             }
             if (k > -1) {
                 slip[k].style.display = 'none';
