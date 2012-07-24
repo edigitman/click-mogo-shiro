@@ -23,19 +23,24 @@ public class NewAccout extends org.apache.click.Page {
 
 	private boolean newAccount() {
 		if (f.isValid()) {
-			User u = new User();
-			u.setActive(false);
-			u.setName(f.getFieldValue(NewAccountForm.NAME));
-			u.setEmail(f.getFieldValue(NewAccountForm.EMAIL));
-			u.setPass(f.getFieldValue(NewAccountForm.PASS));
-			try {
-				AppUtils.registerUser(u);
-			} catch (Exception e) {
-				f.setError(e.getMessage());
+			String cap = (String) getContext().getSessionAttribute("captcha");
+			if (cap.equalsIgnoreCase(f.getFieldValue(NewAccountForm.CAPINPUT))) {
+				User u = new User();
+				u.setActive(false);
+				u.setName(f.getFieldValue(NewAccountForm.NAME));
+				u.setEmail(f.getFieldValue(NewAccountForm.EMAIL));
+				u.setPass(f.getFieldValue(NewAccountForm.PASS));
+				try {
+					AppUtils.registerUser(u);
+				} catch (Exception e) {
+					f.setError(e.getMessage());
+					return false;
+				}
+			} else {
+				f.setError("Are you human ? ");
 				return false;
-			}			
+			}
 		}
 		return true;
 	}
-
 }

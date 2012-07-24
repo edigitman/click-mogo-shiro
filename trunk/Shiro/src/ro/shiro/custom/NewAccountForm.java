@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import org.apache.click.control.FieldSet;
 import org.apache.click.control.Form;
+import org.apache.click.control.ImageSubmit;
 import org.apache.click.control.PasswordField;
 import org.apache.click.control.Submit;
 import org.apache.click.control.TextField;
@@ -14,11 +15,12 @@ public class NewAccountForm extends Form {
 	private static final long serialVersionUID = 1L;
 
 	private CallbackEvent event;
-	private CaptchaField captcha;
 	public static final String NAME = "name";
 	public static final String EMAIL = "email";
 	public static final String PASS = "pass";
 	public static final String PASSC = "passc";
+	public static final String CAP = "CAPTCHA";
+	public static final String CAPINPUT = "HUMAN";
 	
 	public NewAccountForm() {
 		super();
@@ -30,14 +32,14 @@ public class NewAccountForm extends Form {
 	}
 
 	private void init() {
-		captcha = new CaptchaField();
 		FieldSet fs = new FieldSet("New Account");
 		fs.add(new TextField(NAME, true));
 		fs.add(new TextField(EMAIL, true));
 		fs.add(new PasswordField(PASS));
 		fs.add(new PasswordField(PASSC));
+		fs.add(new ImageSubmit(CAP, "/servlet/captcha"));
+		fs.add(new TextField(CAPINPUT));
 		fs.add(new Submit("OK", this, "onSubmit"));
-		fs.add(captcha);
 		add(fs);
 	}
 
