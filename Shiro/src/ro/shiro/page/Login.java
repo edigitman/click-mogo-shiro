@@ -6,11 +6,10 @@ import org.apache.click.control.PageLink;
 import org.apache.click.control.PasswordField;
 import org.apache.click.control.Submit;
 import org.apache.click.control.TextField;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
 
+import ro.shiro.custom.AppUtils;
 import ro.shiro.page.p.Main;
 
 public class Login extends org.apache.click.Page {
@@ -25,19 +24,15 @@ public class Login extends org.apache.click.Page {
 		fs.add(new Submit("ok", this, "onOK"));
 		f.add(fs);
 		addControl(f);
-		addControl(new PageLink("newAcc","new account", NewAccout.class));
+		addControl(new PageLink("newAcc", "new account", NewAccout.class));
 	}
 
 	public boolean onOK() {
 		AuthenticationToken token = new UsernamePasswordToken(
 				f.getFieldValue("name"), f.getFieldValue("pass"));
-		Subject currentUser = SecurityUtils.getSubject();
-		try {
-			currentUser.login(token);
+		if (AppUtils.login(token)) {
 			setRedirect(Main.class);
 			return false;
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return true;
 	}
