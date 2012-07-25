@@ -4,27 +4,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>Shiro</display-name>
-
-	<!-- Start page -->
-	<welcome-file-list>
-		<welcome-file>login.htm</welcome-file>
-	</welcome-file-list>
-
-	<!-- Click Servlet -->
-	<servlet>
-		<servlet-name>ClickServlet</servlet-name>
-		<servlet-class>org.apache.click.ClickServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ClickServlet</servlet-name>
-		<url-pattern>*.htm</url-pattern>
-	</servlet-mapping>
-
-	<!-- Shiro init {@link http://shiro.apache.org/web.html#Web-Shiro1.2andlater} -->
-	<listener>
-		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
-	</listener>
 	<filter>
 		<filter-name>ShiroFilter</filter-name>
 		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
@@ -37,14 +16,29 @@
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
-
-	<!-- Captcha servlet -->
+	<listener>
+		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+	</listener>
 	<servlet>
-		<servlet-name>CaptchaServlet</servlet-name>
-		<servlet-class>com.jsos.image.CaptchaServlet</servlet-class>
+		<servlet-name>ClickServlet</servlet-name>
+		<servlet-class>org.apache.click.ClickServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>register</servlet-name>
+		<servlet-class>ro.shiro.security.Register</servlet-class>
+		<load-on-startup>3</load-on-startup>
+		<async-supported>true</async-supported>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>CaptchaServlet</servlet-name>
-		<url-pattern>/servlet/captcha</url-pattern>
+		<servlet-name>ClickServlet</servlet-name>
+		<url-pattern>*.htm</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>register</servlet-name>
+		<url-pattern>/servlet/register</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>login.htm</welcome-file>
+	</welcome-file-list>
 </web-app>
