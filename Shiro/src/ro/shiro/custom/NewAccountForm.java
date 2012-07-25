@@ -6,9 +6,12 @@ import java.util.regex.Pattern;
 import org.apache.click.control.FieldSet;
 import org.apache.click.control.Form;
 import org.apache.click.control.ImageSubmit;
+import org.apache.click.control.PageLink;
 import org.apache.click.control.PasswordField;
 import org.apache.click.control.Submit;
 import org.apache.click.control.TextField;
+
+import ro.shiro.page.Login;
 
 public class NewAccountForm extends Form {
 
@@ -40,6 +43,7 @@ public class NewAccountForm extends Form {
 		fs.add(new ImageSubmit(CAP, "/servlet/captcha"));
 		fs.add(new TextField(CAPINPUT));
 		fs.add(new Submit("OK", this, "onSubmit"));
+		fs.add(new PageLink("Cancel", Login.class));
 		add(fs);
 	}
 

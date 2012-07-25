@@ -15,11 +15,11 @@ public class AppUtils {
 		if (eu != null) {
 			throw new Exception("User already exists");
 		}
-		sendEmail();
 		c.save(u);
+		sendEmail(u);
 	}
 
-	private static void sendEmail() {
+	private static void sendEmail(User u) {
 		// TODO Auto-generated method stub
 	}
 
