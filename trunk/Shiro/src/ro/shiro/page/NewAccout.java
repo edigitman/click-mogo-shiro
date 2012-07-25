@@ -31,7 +31,7 @@ public class NewAccout extends org.apache.click.Page {
 				u.setEmail(f.getFieldValue(NewAccountForm.EMAIL));
 				u.setPass(f.getFieldValue(NewAccountForm.PASS));
 				try {
-					AppUtils.registerUser(u);
+					AppUtils.registerUser(u, getContext().getRequest().getRequestURL().toString());
 				} catch (Exception e) {
 					f.setError(e.getMessage());
 					return false;

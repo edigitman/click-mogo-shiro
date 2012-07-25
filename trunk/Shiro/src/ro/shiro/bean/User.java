@@ -9,6 +9,7 @@ public class User {
 	private String username;
 	private String email;
 	private boolean active;
+	private String key;
 
 	public ObjectId get_id() {
 		return _id;
@@ -56,5 +57,13 @@ public class User {
 
 	public boolean isActive() {
 		return active;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 }
