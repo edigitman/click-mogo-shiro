@@ -41,6 +41,7 @@ public class NewAccout extends org.apache.click.Page {
 				return false;
 			}
 		}
+		setForward(NewAccountDone.class);
 		return true;
 	}
 }
