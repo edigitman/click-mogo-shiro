@@ -3,15 +3,92 @@
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=UTF-8">
 <title>Shiro</title> $imports
 <style type="text/css">
-#form_New_Account-legend{
-background-color: #f90;
+#form_New_Account-legend {
+	background-color: #f90;
 }
-#form_New_Account{
-background-color: #e6e6e6;
+
+#form_New_Account {
+	background-color: #e6e6e6;
 }
 </style>
 </head>
 <body>
-	<div align="center" style="margin-top: 40px;">$form</div>
+	<div align="center" style="margin-top: 40px;">
+
+		<form method="post" name="form" id="form"
+			action="/Shiro/newAccout.htm">
+			<input type="hidden" name="form_name" id="form_form_name"
+				value="form" />
+			<table class="form" id="form-form">
+				<tbody>
+					<tr>
+						<td>
+							<table class="fields" id="form-fields">
+								<tbody>
+									<tr class="fields">
+										<td class="fields" colspan="2">
+											<fieldset id="form_New_Account">
+												<legend id="form_New_Account-legend">New Account</legend>
+												<table class="fields" id="form_New_Account-fields">
+													<tbody>
+														<tr class="fields">
+															<td class="fields" align="left"><label
+																for="form_name">Name</label><span class="required">*</span></td>
+															<td align="left" colspan="2"><input type="text" name="name"
+																id="form_name" size="20" /></td>
+														</tr>
+														<tr class="fields">
+															<td class="fields" align="left"><label
+																for="form_email">Email</label><span class="required">*</span></td>
+															<td align="left" colspan="2"><input type="text" name="email"
+																id="form_email" size="20" /></td>
+														</tr>
+														<tr class="fields">
+															<td class="fields" align="left"><label
+																for="form_pass">Pass</label>&#160;</td>
+															<td align="left" colspan="2"><input type="password" name="pass"
+																id="form_pass" size="20" /></td>
+														</tr>
+														<tr class="fields">
+															<td class="fields" align="left"><label
+																for="form_passc">Passc</label>&#160;</td>
+															<td align="left" colspan="2"><input type="password" name="passc"
+																id="form_passc" size="20" /></td>
+														</tr>
+														<tr class="fields">
+															<td class="fields" align="left"><label
+																for="form_HUMAN">HUMAN</label>&#160;</td>
+															<td align="left"><input type="text" name="HUMAN"
+																id="form_HUMAN" size="8" /></td>
+															<td class="fields" align="right"><input type="image"
+																name="CAPTCHA" id="form_CAPTCHA" value="CAPTCHA"
+																src="/Shiro/servlet/captcha" /></td>
+														</tr>
+													</tbody>
+												</table>
+												<table id="form_New_Account-buttons" width="200px;"
+													height="30px;">
+													<tbody>
+														<tr>
+															<td><input type="submit" name="OK" id="form_OK"
+																value="OK" /></td>
+															<td><a href="/Shiro/login.htm"
+																style="text-decoration: none; color: #868686;">Cancel</a></td>
+														</tr>
+													</tbody>
+												</table>
+											</fieldset>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+
+
+	</div>
 </body>
 </html>
