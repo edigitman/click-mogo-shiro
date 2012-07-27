@@ -6,10 +6,12 @@ import org.apache.click.control.PageLink;
 import org.apache.click.control.PasswordField;
 import org.apache.click.control.Submit;
 import org.apache.click.control.TextField;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 
 import ro.shiro.custom.AppUtils;
+import ro.shiro.page.n.New;
 import ro.shiro.page.p.Main;
 
 public class Login extends org.apache.click.Page {
@@ -31,10 +33,13 @@ public class Login extends org.apache.click.Page {
 		AuthenticationToken token = new UsernamePasswordToken(
 				f.getFieldValue("name"), f.getFieldValue("pass"));
 		if (AppUtils.login(token)) {
-			setRedirect(Main.class);
+			if (SecurityUtils.getSubject().hasRole("OWNER")) {
+				setRedirect(Main.class);
+				return false;
+			}
+			setRedirect(New.class);
 			return false;
 		}
 		return true;
 	}
-
 }

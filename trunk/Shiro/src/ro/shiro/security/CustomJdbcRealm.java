@@ -1,15 +1,21 @@
 package ro.shiro.security;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.jdbc.JdbcRealm;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.jongo.MongoCollection;
 
-import ro.shiro.bean.User;
+import ro.shiro.bean.UserBean;
 import ro.shiro.mongo.MongoUtils;
 
 public class CustomJdbcRealm extends JdbcRealm {
@@ -36,8 +42,9 @@ public class CustomJdbcRealm extends JdbcRealm {
 		try {
 			MongoUtils m = MongoUtils.getMe();
 			MongoCollection mc = m.getCollection(MongoUtils.Collection.USER);
-			User user = mc.findOne(DEFAULT_AUTHENTICATION_QUERY, username, true).as(
-					User.class);
+			UserBean user = mc
+					.findOne(DEFAULT_AUTHENTICATION_QUERY, username, true).as(
+							UserBean.class);
 
 			if (user == null) {
 				throw new AccountException("User not found.");
@@ -57,5 +64,17 @@ public class CustomJdbcRealm extends JdbcRealm {
 		}
 
 		return info;
+	}
+
+	@Override
+	protected AuthorizationInfo doGetAuthorizationInfo(
+			PrincipalCollection principals) {
+		MongoCollection c = MongoUtils.getMe().getCollection(
+				MongoUtils.Collection.USER);
+		AuthorizationInfo ai = new SimpleAuthorizationInfo(c
+				.findOne("{name: #}",
+						principals.getPrimaryPrincipal().toString())
+				.as(UserBean.class).getRoles());
+		return ai;
 	}
 }

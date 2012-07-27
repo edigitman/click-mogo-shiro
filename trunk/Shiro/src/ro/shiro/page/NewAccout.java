@@ -1,6 +1,9 @@
 package ro.shiro.page;
 
-import ro.shiro.bean.User;
+import java.util.HashSet;
+import java.util.Set;
+
+import ro.shiro.bean.UserBean;
 import ro.shiro.custom.AppUtils;
 import ro.shiro.custom.CallbackEvent;
 import ro.shiro.custom.NewAccountForm;
@@ -25,13 +28,17 @@ public class NewAccout extends org.apache.click.Page {
 		if (f.isValid()) {
 			String cap = (String) getContext().getSessionAttribute("captcha");
 			if (cap.equalsIgnoreCase(f.getFieldValue(NewAccountForm.CAPINPUT))) {
-				User u = new User();
+				Set<String> roles = new HashSet<String>();
+				roles.add("NEW");
+				UserBean u = new UserBean();
 				u.setActive(false);
 				u.setName(f.getFieldValue(NewAccountForm.NAME));
 				u.setEmail(f.getFieldValue(NewAccountForm.EMAIL));
 				u.setPass(f.getFieldValue(NewAccountForm.PASS));
+				u.setRoles(roles);
 				try {
-					AppUtils.registerUser(u, getContext().getRequest().getRequestURL().toString());
+					AppUtils.registerUser(u, getContext().getRequest()
+							.getRequestURL().toString());
 				} catch (Exception e) {
 					f.setError(e.getMessage());
 					return false;
