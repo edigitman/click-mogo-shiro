@@ -6,30 +6,39 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.jongo.MongoCollection;
 
-import ro.shiro.bean.User;
-import ro.shiro.mongo.MongoUtils;
+import ro.shiro.bean.CarBean;
+import ro.shiro.bean.UserBean;
+import ro.shiro.mongo.dao.CarDao;
+import ro.shiro.mongo.dao.UserDao;
 
 public class AppUtils {
 
-	public static void registerUser(User u, String ctx) throws Exception {
-		MongoCollection c = MongoUtils.getMe().getCollection(
-				MongoUtils.Collection.USER);
+	public static void registerUser(UserBean u, String ctx) throws Exception {
+		UserDao ud = new UserDao();
 
-		User eu = c.findOne("{name: #}", u.getName()).as(User.class);
+		UserBean eu = ud.getByName(u.getName());
 		if (eu != null) {
 			throw new Exception("User already exists");
 		}
 		sendEmail(u, ctx);
-		c.save(u);
+		ud.update(eu);
 	}
-	
-	
 
-	private static void sendEmail(User u, String ctx) {
+	public static UserBean getUser() {
+		UserDao ud = new UserDao();
+		return ud.getByName(SecurityUtils.getSubject().getPrincipal()
+				.toString());
+	}
+
+	public static CarBean getCar() {
+		CarDao cd = new CarDao();
+		return cd.getById(getUser().getCar());
+	}
+
+	private static void sendEmail(UserBean u, String ctx) {
 		u.setKey(String.valueOf(UUID.randomUUID().getLeastSignificantBits()));
-		new MailSender().sendMail(u, ctx);		
+		new MailSender().sendMail(u, ctx);
 	}
 
 	public static boolean login(AuthenticationToken token) {
@@ -45,11 +54,9 @@ public class AppUtils {
 
 	public static boolean validateAccount(String user, String key)
 			throws Exception {
+		UserDao ud = new UserDao();
 
-		MongoCollection c = MongoUtils.getMe().getCollection(
-				MongoUtils.Collection.USER);
-
-		User eu = c.findOne("{name: #}", user).as(User.class);
+		UserBean eu = ud.getByName(user);
 		if (eu == null) {
 			throw new Exception("User doesen't exists");
 		}
@@ -61,8 +68,7 @@ public class AppUtils {
 				throw new Exception("Invalid activation key");
 			}
 		}
-
-		c.save(eu);
+		ud.update(eu);
 
 		AuthenticationToken token = new UsernamePasswordToken(eu.getName(),
 				eu.getPass());

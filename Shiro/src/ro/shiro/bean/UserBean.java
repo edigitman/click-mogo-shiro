@@ -1,8 +1,10 @@
 package ro.shiro.bean;
 
+import java.util.Set;
+
 import org.bson.types.ObjectId;
 
-public class User {
+public class UserBean {
 	private ObjectId _id;
 	private String name;
 	private String pass;
@@ -10,6 +12,8 @@ public class User {
 	private String email;
 	private boolean active;
 	private String key;
+	private Set<String> roles;
+	private ObjectId car;
 
 	public ObjectId get_id() {
 		return _id;
@@ -65,5 +69,21 @@ public class User {
 
 	public void setKey(String key) {
 		this.key = key;
+	}
+
+	public Set<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
+	}
+
+	public ObjectId getCar() {
+		return car;
+	}
+
+	public void setCar(ObjectId car) {
+		this.car = car;
 	}
 }

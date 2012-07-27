@@ -12,7 +12,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import ro.shiro.bean.User;
+import ro.shiro.bean.UserBean;
 
 public class MailSender {
 
@@ -29,7 +29,7 @@ public class MailSender {
 		}
 	}
 
-	public void sendMail(User u, String ctx) {
+	public void sendMail(UserBean u, String ctx) {
 		Session session = Session.getDefaultInstance(properties,
 				new javax.mail.Authenticator() {
 					protected PasswordAuthentication getPasswordAuthentication() {
@@ -38,8 +38,8 @@ public class MailSender {
 					}
 				});
 
-		String url = ctx.replace("newAccout.htm/", "")
-				+ "/servlet/register?key=" + u.getKey() + "&u=" + u.getName();
+		String url = ctx.replace("newAccout.htm", "")
+				+ "servlet/register?key=" + u.getKey() + "&u=" + u.getName();
 
 		try {
 			Message message = new MimeMessage(session);

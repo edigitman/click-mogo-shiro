@@ -59,6 +59,6 @@ public class MongoUtils {
 	}
 
 	public static enum Collection {
-		USER, ROLE, USER_ROLE
+		USER, CAR
 	}
 }
