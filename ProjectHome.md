@@ -1,0 +1,1 @@
+Simple web app to be used as a start-up for future projects. It uses MongoDB, Shiro and Click.
